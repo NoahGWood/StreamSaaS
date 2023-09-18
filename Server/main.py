@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from config import settings
 from config.routes import ImportRoutes
 
@@ -10,6 +11,10 @@ app = FastAPI(
     redoc_url = settings.REDOC_URL,
     debug = settings.DEBUG
 )
+
+app.mount(settings.STATIC_ROUTE, 
+            StaticFiles(directory=settings.STATIC_DIR),
+            name="static")
 
 # Include Routes
 ImportRoutes(app)

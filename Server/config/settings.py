@@ -19,6 +19,9 @@ LOG_LEVEL = "info"
 # Templating
 TEMPLATE_DIR = "templates"
 TEMPLATES = Jinja2Templates(directory=TEMPLATE_DIR)
+# Static Files
+STATIC_ROUTE = "/static"
+STATIC_DIR = "static"
 
 # Security Settings
 FORCE_SSL = False # MUST BE ON IN PRODUCTION! Disable in development
@@ -54,3 +57,7 @@ DATABASE_USER = os.environ.get("DATABASE_USER", "neo4j")
 DATABASE_PASSWORD = os.environ.get("DATABASE_PASSWORD", "password") 
 
 DB = GraphDatabase.driver(DATABASE_URL, auth=(DATABASE_USER, DATABASE_PASSWORD))
+
+# Redirection Rules
+ON_LOGIN_REDIRECT = "/"
+ON_REGISTER_REDIRECT = "/"

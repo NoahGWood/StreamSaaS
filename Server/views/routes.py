@@ -1,6 +1,7 @@
-from views import home, user
+from views import home, user, dash
 
 ROUTES = [
     home.router,
-    user.router
+    user.router,
+    dash.router
     ]

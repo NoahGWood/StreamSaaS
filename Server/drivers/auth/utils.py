@@ -62,7 +62,6 @@ def EmailInUse(email: str):
 
 def AuthenticateUser(email: str, pword: str):
     user = GetUserByEmail(email)
-    print(user)
     if user:
         return user if VerifyPassword(user, pword) else False
     return False
@@ -76,6 +75,10 @@ def CreateAccessToken(data:dict, expires: Optional[timedelta] = None):
         expire += timedelta(minutes=settings.TOKEN_LIFETIME_MINUTES)
     to_encode["expires"]=str(expire)
     return jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.JWT_ALGORITHM)
+
+def GenToken(user:User, request:Request):
+    token = CreateAccessToken(data={"UUID":user.UUID, "IP":request.client.host})
+    return token
 
 def ReadToken(token: str):
     cred_except = HTTPException(
@@ -115,3 +118,4 @@ async def GetCookieUserAllowGuest(request: Request):
         except HTTPException as e:
             return None
     return None
+
